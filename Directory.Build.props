@@ -1,10 +1,6 @@
   <Project>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <BaseIntermediateOutputPath>..\obj</BaseIntermediateOutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PropertyGroup>
       <BaseIntermediateOutputPath>..\obj</BaseIntermediateOutputPath>
     </PropertyGroup>
     
