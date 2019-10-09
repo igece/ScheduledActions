@@ -3,25 +3,46 @@
 
 namespace ScheduledActions
 {
-  class MonthlyTask : ScheduledAction
+  public class MonthlyAction : ScheduledAction
   {
-    public MonthlyTask(Action<DateTime> action) : base(action)
+    private readonly uint eachMonths_ = 1;
+
+
+    public MonthlyAction(Action<DateTime> action) : base(action)
     {
     }
 
 
-    public MonthlyTask(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+    public MonthlyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
     {
     }
 
 
-    public MonthlyTask(Time activationTime, Action<DateTime> action) : base(activationTime, action)
+    public MonthlyAction(bool executeNow, uint eachMonths, Action<DateTime> action) : base(executeNow, action)
+    {
+      eachMonths_ = eachMonths;
+    }
+
+
+    public MonthlyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
     {
     }
 
 
-    public MonthlyTask(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+    public MonthlyAction(Time activationTime, uint eachMonths, Action<DateTime> action) : base(activationTime, action)
     {
+      eachMonths_ = eachMonths;
+    }
+
+
+    public MonthlyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+    }
+
+
+    public MonthlyAction(bool executeNow, Time activationTime, uint eachMonths, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+      eachMonths_ = eachMonths;
     }
 
 
@@ -30,12 +51,12 @@ namespace ScheduledActions
       if (ActivationTime.HasValue)
       {
         DateTime today = DateTime.Today;
-        return ActivationTime.Value.AddDate(today.AddDays(-(today.Day - 1)).AddMonths(1));
+        return ActivationTime.Value.AddDate(today.AddDays(-(today.Day - 1)).AddMonths((int)eachMonths_));
       }
       else
       {
         DateTime today = DateTime.Today;
-        return today.AddDays(-(today.Day - 1)).AddMonths(1);
+        return today.AddDays(-(today.Day - 1)).AddMonths((int)eachMonths_);
       }
     }
   }

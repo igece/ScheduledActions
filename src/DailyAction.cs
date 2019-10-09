@@ -3,8 +3,11 @@
 
 namespace ScheduledActions
 {
-  class DailyAction: ScheduledAction
+  public class DailyAction: ScheduledAction
   {
+    private readonly uint eachDays_ = 1;
+
+
     public DailyAction(Action<DateTime> action) : base(action)
     {
     }
@@ -15,8 +18,20 @@ namespace ScheduledActions
     }
 
 
+    public DailyAction(bool executeNow, uint eachDays, Action<DateTime> action) : base(executeNow, action)
+    {
+      eachDays_ = eachDays;
+    }
+
+
     public DailyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
     {
+    }
+
+
+    public DailyAction(Time activationTime, uint eachDays, Action<DateTime> action) : base(activationTime, action)
+    {
+      eachDays_ = eachDays;
     }
 
 
@@ -25,12 +40,18 @@ namespace ScheduledActions
     }
 
 
+    public DailyAction(bool executeNow, Time activationTime, uint eachDays, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+      eachDays_ = eachDays;
+    }
+
+
     public override DateTime Reschedule()
     {
       if (ActivationTime.HasValue)
-        return ActivationTime.Value.AddDate(DateTime.Today.AddDays(1));
+        return ActivationTime.Value.AddDate(DateTime.Today.AddDays(eachDays_));
       else
-        return DateTime.Now.AddDays(1);
+        return DateTime.Now.AddDays(eachDays_);
     }
   }
 }

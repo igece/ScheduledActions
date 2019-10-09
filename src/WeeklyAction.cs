@@ -3,44 +3,60 @@
 
 namespace ScheduledActions
 {
-  class WeeklyTask: ScheduledAction
+  public class WeeklyAction: ScheduledAction
   {
-    public Time? activationTime_ = null;
+    private readonly uint eachWeeks_ = 1;
 
 
-    public WeeklyTask(Action<DateTime> action) : base(action)
+    public WeeklyAction(Action<DateTime> action) : base(action)
     {
     }
 
 
-    public WeeklyTask(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+    public WeeklyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
     {
     }
 
 
-    public WeeklyTask(Time activationTime, Action<DateTime> action) : base(action)
+    public WeeklyAction(bool executeNow, uint eachWeeks, Action<DateTime> action) : base(executeNow, action)
     {
-      activationTime_ = activationTime;
+      eachWeeks_ = eachWeeks;
     }
 
 
-    public WeeklyTask(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, action)
+    public WeeklyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
     {
-      activationTime_ = activationTime;
+    }
+
+
+    public WeeklyAction(Time activationTime, uint eachWeeks, Action<DateTime> action) : base(activationTime, action)
+    {
+      eachWeeks_ = eachWeeks;
+    }
+
+
+    public WeeklyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+    }
+
+
+    public WeeklyAction(bool executeNow, Time activationTime, uint eachWeeks, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+      eachWeeks_ = eachWeeks;
     }
 
 
     public override DateTime Reschedule()
     {
-      if (activationTime_.HasValue)
+      if (ActivationTime.HasValue)
       {
         DateTime today = DateTime.Today;
-        return activationTime_.Value.AddDate(today.AddDays(((int)DayOfWeek.Monday - (int)today.AddDays(1).DayOfWeek + 7) % 7));
+        return ActivationTime.Value.AddDate(today.AddDays((int)DayOfWeek.Monday - (int)today.AddDays(1).DayOfWeek + (eachWeeks_* 7) % (eachWeeks_ * 7)));
       }
       else
       {
         DateTime today = DateTime.Now;
-        return today.AddDays(((int)DayOfWeek.Monday - (int)today.AddDays(1).DayOfWeek + 7) % 7);
+        return today.AddDays(((int)DayOfWeek.Monday - (int)today.AddDays(1).DayOfWeek + (eachWeeks_ * 7)) % (eachWeeks_ * 7));
       }
     }
   }

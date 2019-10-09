@@ -3,7 +3,7 @@
 
 namespace ScheduledActions
 {
-  struct Time
+  public struct Time
   {
     public uint Hour { get; private set; }
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ScheduledActions
 {
-  abstract class ScheduledAction : IDisposable
+  public abstract class ScheduledAction : IDisposable
   {
     public Time? ActivationTime { get; protected set; }
 

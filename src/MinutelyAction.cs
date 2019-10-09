@@ -3,7 +3,7 @@
 
 namespace ScheduledActions
 {
-  class MinutelyAction : ScheduledAction
+  public class MinutelyAction : ScheduledAction
   {
     private readonly uint eachMinutes_ = 1;
 
@@ -18,21 +18,34 @@ namespace ScheduledActions
     }
 
 
-    public MinutelyAction(uint eachMinutes, Action<DateTime> action) : base(action)
-    {
-      eachMinutes_ = eachMinutes;
-    }
-
-
     public MinutelyAction(bool executeNow, uint eachMinutes, Action<DateTime> action) : base(executeNow, action)
     {
       eachMinutes_ = eachMinutes;
     }
 
 
+    public MinutelyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
+    {
+    }
+
+
+    public MinutelyAction(Time activationTime, uint eachMinutes, Action<DateTime> action) : base(activationTime, action)
+    {
+      eachMinutes_ = eachMinutes;
+    }
+
+
+    public MinutelyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+    {
+    }
+
+
     public override DateTime Reschedule()
     {
-      return DateTime.Now.AddMinutes(eachMinutes_);
+      if (ActivationTime.HasValue)
+        return ActivationTime.Value.AddDate(DateTime.Today.AddMinutes(eachMinutes_));
+      else
+        return DateTime.Now.AddMinutes(eachMinutes_);
     }
   }
 }
