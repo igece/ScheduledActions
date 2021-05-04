@@ -32,4 +32,11 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>False</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
 </Project>
