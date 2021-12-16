@@ -81,9 +81,45 @@ namespace ScheduledActions
         }
 
 
+        public static bool operator <(Time left, TimeSpan right)
+        {
+            return left.CompareTo(right) < 0;
+        }
+
+
         public static bool operator >(Time left, Time right)
         {
             return left.CompareTo(right) > 0;
+        }
+
+
+        public static bool operator >(Time left, TimeSpan right)
+        {
+            return left.CompareTo(right) > 0;
+        }
+
+
+        public static bool operator <=(Time left, Time right)
+        {
+            return left.CompareTo(right) <= 0;
+        }
+
+
+        public static bool operator <=(Time left, TimeSpan right)
+        {
+            return left.CompareTo(right) <= 0;
+        }
+
+
+        public static bool operator >=(Time left, Time right)
+        {
+            return left.CompareTo(right) >= 0;
+        }
+
+
+        public static bool operator >=(Time left, TimeSpan right)
+        {
+            return left.CompareTo(right) >= 0;
         }
 
 
@@ -92,7 +128,7 @@ namespace ScheduledActions
             uint newHour = Hour + hours;
 
             if (newHour > 23)
-                throw new Exception("Invalid time specified.");
+                throw new ArgumentException("Invalid time specified.");
 
             return new Time(newHour, Minute, Second);
         }
@@ -110,7 +146,7 @@ namespace ScheduledActions
             }
 
             if (newHour > 23)
-                throw new Exception("Invalid time specified.");
+                throw new ArgumentException("Invalid time specified.");
 
             return new Time(newHour, newMinute, Second);
         }
@@ -135,7 +171,7 @@ namespace ScheduledActions
             }
 
             if (newHour > 23)
-                throw new Exception("Invalid time specified.");
+                throw new ArgumentException("Invalid time specified.");
 
             return new Time(newHour, newMinute, newSecond);
         }
