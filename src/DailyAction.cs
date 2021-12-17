@@ -49,7 +49,17 @@ namespace ScheduledActions
         public override DateTime Reschedule()
         {
             if (ActivationTime.HasValue)
-                return ActivationTime.Value.AddDate(DateTime.Today.AddDays(eachDays_));
+            {
+                if (ActivationTime.Value > DateTime.Now.TimeOfDay)
+                {
+                    return ActivationTime.Value.AddDate(DateTime.Today);
+                }
+
+                else
+                {
+                    return ActivationTime.Value.AddDate(DateTime.Today.AddDays(eachDays_));
+                }
+            }
             else
                 return DateTime.Now.AddDays(eachDays_);
         }
