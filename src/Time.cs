@@ -183,12 +183,6 @@ namespace ScheduledActions
         }
 
 
-        public override string ToString()
-        {
-            return string.Format("{0:00}:{1:00}:{2:00}", Hour, Minute, Second);
-        }
-
-
         public int CompareTo(object obj)
         {
             if (obj is Time time)
@@ -254,6 +248,18 @@ namespace ScheduledActions
         public override int GetHashCode()
         {
             return Hour.GetHashCode() ^ Minute.GetHashCode() ^ Second.GetHashCode();
+        }
+
+
+        public override string ToString()
+        {
+            return string.Format("{0:00}:{1:00}:{2:00}", Hour, Minute, Second);
+        }
+
+
+        public TimeSpan ToTimeSpan()
+        {
+            return new TimeSpan((int)Hour, (int)Minute, (int)Second);
         }
     }
 }
