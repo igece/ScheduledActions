@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,30 +18,30 @@ namespace ScheduledActions
         private static readonly object scheduleLock_ = new object();
         private bool disposed_ = false;
 
-        private Action<DateTime> action_;
+        private IEnumerable<Action<DateTime>> actions_ = null;
 
 
-        public ScheduledAction(Action<DateTime> action)
+        public ScheduledAction(params Action<DateTime>[] actions)
         {
-            Initialize(false, null, action);
+            Initialize(false, null, actions);
         }
 
 
-        public ScheduledAction(Time activationTime, Action<DateTime> action)
+        public ScheduledAction(Time activationTime, params Action<DateTime>[] actions)
         {
-            Initialize(false, activationTime, action);
+            Initialize(false, activationTime, actions);
         }
 
 
-        public ScheduledAction(bool executeNow, Action<DateTime> action)
+        public ScheduledAction(bool executeNow, params Action<DateTime>[] actions)
         {
-            Initialize(executeNow, null, action);
+            Initialize(executeNow, null, actions);
         }
 
 
-        public ScheduledAction(bool executeNow, Time activationTime, Action<DateTime> action)
+        public ScheduledAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions)
         {
-            Initialize(executeNow, activationTime, action);
+            Initialize(executeNow, activationTime, actions);
         }
 
 
@@ -64,9 +66,9 @@ namespace ScheduledActions
         }
 
 
-        protected void Initialize(bool executeNow, Time? activationTime, Action<DateTime> action)
+        protected void Initialize(bool executeNow, Time? activationTime, Action<DateTime>[] actions)
         {
-            action_ = action;
+            actions_ = actions.ToList();
             ActivationTime = activationTime;
             NextExecution = Reschedule();
 
@@ -75,7 +77,7 @@ namespace ScheduledActions
             if (dueTime < TimeSpan.Zero)
                 return;
 
-            timer_ = new Timer(x => ExecuteAndReschedule(), null, dueTime, TimeSpan.Zero);
+            timer_ = new Timer(_ => ExecuteAndReschedule(), null, dueTime, TimeSpan.Zero);
         }
 
 
@@ -86,7 +88,9 @@ namespace ScheduledActions
                 lock (scheduleLock_)
                 {
                     NextExecution = Reschedule();
-                    action_(NextExecution);
+                    
+                    foreach (var action in actions_)
+                        action(NextExecution);
 
                     TimeSpan dueTime = NextExecution - DateTime.Now;
 

@@ -8,39 +8,39 @@ namespace ScheduledActions
         private readonly uint eachWeeks_ = 1;
 
 
-        public WeeklyAction(Action<DateTime> action) : base(action)
+        public WeeklyAction(params Action<DateTime>[] actions) : base(actions)
         {
         }
 
 
-        public WeeklyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+        public WeeklyAction(bool executeNow, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
         }
 
 
-        public WeeklyAction(bool executeNow, uint eachWeeks, Action<DateTime> action) : base(executeNow, action)
-        {
-            eachWeeks_ = eachWeeks;
-        }
-
-
-        public WeeklyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
-        {
-        }
-
-
-        public WeeklyAction(Time activationTime, uint eachWeeks, Action<DateTime> action) : base(activationTime, action)
+        public WeeklyAction(bool executeNow, uint eachWeeks, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
             eachWeeks_ = eachWeeks;
         }
 
 
-        public WeeklyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public WeeklyAction(Time activationTime, params Action<DateTime>[] actions) : base(activationTime, actions)
         {
         }
 
 
-        public WeeklyAction(bool executeNow, Time activationTime, uint eachWeeks, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public WeeklyAction(Time activationTime, uint eachWeeks, params Action<DateTime>[] actions) : base(activationTime, actions)
+        {
+            eachWeeks_ = eachWeeks;
+        }
+
+
+        public WeeklyAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
+        {
+        }
+
+
+        public WeeklyAction(bool executeNow, Time activationTime, uint eachWeeks, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
         {
             eachWeeks_ = eachWeeks;
         }

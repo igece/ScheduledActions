@@ -8,39 +8,39 @@ namespace ScheduledActions
         private readonly uint eachHours_ = 1;
 
 
-        public HourlyAction(Action<DateTime> action) : base(action)
+        public HourlyAction(params Action<DateTime>[] actions) : base(actions)
         {
         }
 
 
-        public HourlyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+        public HourlyAction(bool executeNow, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
         }
 
 
-        public HourlyAction(bool executeNow, uint eachHours, Action<DateTime> action) : base(executeNow, action)
-        {
-            eachHours_ = eachHours;
-        }
-
-
-        public HourlyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
-        {
-        }
-
-
-        public HourlyAction(Time activationTime, uint eachHours, Action<DateTime> action) : base(activationTime, action)
+        public HourlyAction(bool executeNow, uint eachHours, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
             eachHours_ = eachHours;
         }
 
 
-        public HourlyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public HourlyAction(Time activationTime, params Action<DateTime>[] actions) : base(activationTime, actions)
         {
         }
 
 
-        public HourlyAction(Time activationTime, bool executeNow, uint eachHours, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public HourlyAction(Time activationTime, uint eachHours, params Action<DateTime>[] actions) : base(activationTime, actions)
+        {
+            eachHours_ = eachHours;
+        }
+
+
+        public HourlyAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
+        {
+        }
+
+
+        public HourlyAction(Time activationTime, bool executeNow, uint eachHours, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
         {
             eachHours_ = eachHours;
         }

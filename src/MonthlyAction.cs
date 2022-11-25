@@ -8,39 +8,39 @@ namespace ScheduledActions
         private readonly uint eachMonths_ = 1;
 
 
-        public MonthlyAction(Action<DateTime> action) : base(action)
+        public MonthlyAction(params Action<DateTime>[] actions) : base(actions)
         {
         }
 
 
-        public MonthlyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+        public MonthlyAction(bool executeNow, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
         }
 
 
-        public MonthlyAction(bool executeNow, uint eachMonths, Action<DateTime> action) : base(executeNow, action)
-        {
-            eachMonths_ = eachMonths;
-        }
-
-
-        public MonthlyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
-        {
-        }
-
-
-        public MonthlyAction(Time activationTime, uint eachMonths, Action<DateTime> action) : base(activationTime, action)
+        public MonthlyAction(bool executeNow, uint eachMonths, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
             eachMonths_ = eachMonths;
         }
 
 
-        public MonthlyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public MonthlyAction(Time activationTime, params Action<DateTime>[] actions) : base(activationTime, actions)
         {
         }
 
 
-        public MonthlyAction(bool executeNow, Time activationTime, uint eachMonths, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public MonthlyAction(Time activationTime, uint eachMonths, params Action<DateTime>[] actions) : base(activationTime, actions)
+        {
+            eachMonths_ = eachMonths;
+        }
+
+
+        public MonthlyAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
+        {
+        }
+
+
+        public MonthlyAction(bool executeNow, Time activationTime, uint eachMonths, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
         {
             eachMonths_ = eachMonths;
         }

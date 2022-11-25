@@ -8,39 +8,33 @@ namespace ScheduledActions
         private readonly uint eachDays_ = 1;
 
 
-        public DailyAction(Action<DateTime> action) : base(action)
+        public DailyAction(params Action<DateTime>[] actions) : base(actions)
         {
         }
 
 
-        public DailyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+        public DailyAction(bool executeNow, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
         }
 
 
-        public DailyAction(bool executeNow, uint eachDays, Action<DateTime> action) : base(executeNow, action)
-        {
-            eachDays_ = eachDays;
-        }
-
-
-        public DailyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
-        {
-        }
-
-
-        public DailyAction(Time activationTime, uint eachDays, Action<DateTime> action) : base(activationTime, action)
+        public DailyAction(bool executeNow, uint eachDays, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
             eachDays_ = eachDays;
         }
 
 
-        public DailyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public DailyAction(Time activationTime, params Action<DateTime>[] actions) : base(activationTime, actions)
         {
         }
 
 
-        public DailyAction(bool executeNow, Time activationTime, uint eachDays, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public DailyAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
+        {
+        }
+
+
+        public DailyAction(bool executeNow, Time activationTime, uint eachDays, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
         {
             eachDays_ = eachDays;
         }

@@ -8,34 +8,34 @@ namespace ScheduledActions
         private readonly uint eachMinutes_ = 1;
 
 
-        public MinutelyAction(Action<DateTime> action) : base(action)
+        public MinutelyAction(params Action<DateTime>[] actions) : base(actions)
         {
         }
 
 
-        public MinutelyAction(bool executeNow, Action<DateTime> action) : base(executeNow, action)
+        public MinutelyAction(bool executeNow, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
         }
 
 
-        public MinutelyAction(bool executeNow, uint eachMinutes, Action<DateTime> action) : base(executeNow, action)
-        {
-            eachMinutes_ = eachMinutes;
-        }
-
-
-        public MinutelyAction(Time activationTime, Action<DateTime> action) : base(activationTime, action)
-        {
-        }
-
-
-        public MinutelyAction(Time activationTime, uint eachMinutes, Action<DateTime> action) : base(activationTime, action)
+        public MinutelyAction(bool executeNow, uint eachMinutes, params Action<DateTime>[] actions) : base(executeNow, actions)
         {
             eachMinutes_ = eachMinutes;
         }
 
 
-        public MinutelyAction(bool executeNow, Time activationTime, Action<DateTime> action) : base(executeNow, activationTime, action)
+        public MinutelyAction(Time activationTime, params Action<DateTime>[] actions) : base(activationTime, actions)
+        {
+        }
+
+
+        public MinutelyAction(Time activationTime, uint eachMinutes, params Action<DateTime>[] actions) : base(activationTime, actions)
+        {
+            eachMinutes_ = eachMinutes;
+        }
+
+
+        public MinutelyAction(bool executeNow, Time activationTime, params Action<DateTime>[] actions) : base(executeNow, activationTime, actions)
         {
         }
 
