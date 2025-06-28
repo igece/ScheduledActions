@@ -44,18 +44,15 @@ namespace ScheduledActions
         {
             if (ActivationTime.HasValue)
             {
-                if (ActivationTime.Value > DateTime.Now.TimeOfDay)
-                {
-                    return ActivationTime.Value.AddDate(DateTime.Today);
-                }
+                var todayActivation = ActivationTime.Value.AddDate(DateTime.Today);
 
-                else
-                {
-                    return ActivationTime.Value.AddDate(DateTime.Today.AddDays(eachDays_));
-                }
+                if (todayActivation > DateTime.Now)
+                    return todayActivation;
+
+                return ActivationTime.Value.AddDate(DateTime.Today.AddDays(eachDays_));
             }
-            else
-                return DateTime.Now.AddDays(eachDays_);
+
+            return DateTime.Now.AddDays(eachDays_);
         }
     }
 }
